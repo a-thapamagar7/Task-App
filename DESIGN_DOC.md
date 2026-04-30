@@ -59,6 +59,8 @@ Storage limits, no sync across tabs, no conflict resolution. For anything real t
 
 **Validation** — add Zod, wire it to forms, handle errors clearly.
 
+**Performance at scale** — would add react-window or react-virtualized to only render visible tasks instead of the full list, which becomes a problem as task count grows.
+
 **Accessibility** — go through WCAG more carefully, add ARIA where needed, test with a screen reader.
 
 **Backend + React Query** — move off localStorage, add a real API, use React Query for caching and loading states.
