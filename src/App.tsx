@@ -1,50 +1,38 @@
 import "@/App.css";
 import TaskHeader from "@/components/task-dashboard/TaskHeader";
-import { TASK_STATUSES } from "@/constants/task-constants";
 import TaskCard from "@/components/task-dashboard/TaskCard";
-import { v4 as uuidv4 } from "uuid";
+import { TASK_STATUSES } from "@/constants/task-constants";
+import type { TaskStatus } from "@/types/task.types";
+import { useTasks } from "./hooks/useTasks";
 
 function App() {
-  const tasks = [
-    {
-      id: uuidv4(),
-      title: "Create a new Landing Page",
-      description: "This is a sample task description...",
-      status: "to_do",
-    },
-    {
-      id: uuidv4(),
-      title: "Create a new Landing Page",
-      description: "This is a sample task description...",
-      status: "in_progress",
-    },
-    {
-      id: uuidv4(),
-      title: "Create a new Landing Page",
-      description: "This is a sample task description...",
-      status: "done",
-    },
-  ];
+  const { groupedTasks, deleteTask, editTask, moveTask } = useTasks();
+
   return (
     <div className="px-40 py-20">
-      <div className="grid grid-cols-3 gap-10">
+      <div className="grid gap-10 grid-cols-1 lg:grid-cols-3">
         {TASK_STATUSES.map((status) => (
-          <TaskHeader
-            key={status.value}
-            color={status.color}
-            label={status.label}
-            value={status.value}
-          />
-        ))}
-        {tasks.map((task) => (
-          <TaskCard
-            key={task.id}
-            title={task.title}
-            description={task.description}
-            onEdit={() => console.log("edit")}
-            onDelete={() => console.log("delete")}
-            onMove={(status) => console.log(status)}
-          />
+          <div key={status.value} className="flex flex-col gap-y-5">
+            <TaskHeader
+              color={status.background}
+              label={status.label}
+              value={status.value}
+            />
+
+            {groupedTasks[status.value as TaskStatus].map((task) => (
+              <TaskCard
+                key={task.id}
+                title={task.title}
+                currentStatus={task.status}
+                description={task.description}
+                onEdit={() =>
+                  editTask(task.id, prompt("New title?") || task.title)
+                }
+                onDelete={() => deleteTask(task.id)}
+                onMove={(newStatus: TaskStatus) => moveTask(task.id, newStatus)}
+              />
+            ))}
+          </div>
         ))}
       </div>
     </div>

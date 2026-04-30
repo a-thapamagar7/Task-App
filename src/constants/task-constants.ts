@@ -1,18 +1,28 @@
-const TASK_STATUSES = [
+import type { TaskStatus } from "@/types/task.types";
+
+const TASK_STATUSES: {
+  label: string;
+  value: TaskStatus;
+  color: string;
+  background: string;
+}[] = [
   {
     label: "To Do",
     value: "to_do",
-    color: "blue-500",
+    color: "text-blue-500",
+    background: "bg-blue-500",
   },
   {
     label: "In Progress",
     value: "in_progress",
-    color: "yellow-500",
+    color: "text-yellow-500",
+    background: "bg-yellow-500",
   },
   {
     label: "Done",
     value: "done",
-    color: "green-500",
+    color: "text-green-500",
+    background: "bg-green-500",
   },
 ];
 

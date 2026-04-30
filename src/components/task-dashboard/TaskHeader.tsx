@@ -10,7 +10,7 @@ const TaskHeader: React.FC<{ color: string; label: string; value: string }> = ({
 }) => {
   return (
     <div className="flex w-full items-center">
-      <div className={`w-1 h-2/3 bg-${color}`} />
+      <div className={`w-1 h-2/3 ${color}`} />
       <Card key={value} className="flex-1 col-span-1 shadow-md">
         <CardHeader>
           <CardTitle className="font-semibold">{label}</CardTitle>

@@ -24,14 +24,19 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { TASK_STATUSES } from "@/constants/task-constants";
 import type React from "react";
+import type { TaskStatus } from "@/types/task.types";
 
 const TaskCard: React.FC<{
   title: string;
   description: string;
+  currentStatus: TaskStatus;
   onEdit: () => void;
   onDelete: () => void;
-  onMove: (status: string) => void;
-}> = ({ title, description, onEdit, onDelete, onMove }) => {
+  onMove: (status: TaskStatus) => void;
+}> = ({ title, description, currentStatus, onEdit, onDelete, onMove }) => {
+  const filteredStatuses = TASK_STATUSES.filter(
+    (status) => status.value !== currentStatus,
+  );
   return (
     <Card className="flex-1 shadow-md">
       <CardHeader>
@@ -67,19 +72,18 @@ const TaskCard: React.FC<{
             <DropdownMenuGroup>
               <DropdownMenuLabel>Status</DropdownMenuLabel>
 
-              {TASK_STATUSES.map((status) => (
-                <DropdownMenuItem
-                  key={status.value}
-                  className="cursor-pointer"
-                  onClick={() => onMove(status.value)}
-                >
-                  <HugeiconsIcon
-                    icon={PinIcon}
-                    className={`text-${status.color}`}
-                  />
-                  {status.label}
-                </DropdownMenuItem>
-              ))}
+              {filteredStatuses.map((status) => {
+                return (
+                  <DropdownMenuItem
+                    key={status.value}
+                    className="cursor-pointer"
+                    onClick={() => onMove(status.value)}
+                  >
+                    <HugeiconsIcon icon={PinIcon} className={status.color} />
+                    {status.label}
+                  </DropdownMenuItem>
+                );
+              })}
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
