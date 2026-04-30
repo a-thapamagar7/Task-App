@@ -2,17 +2,17 @@ const TASK_STATUSES = [
   {
     label: "To Do",
     value: "to_do",
-    color: "bg-blue-500",
+    color: "blue-500",
   },
   {
     label: "In Progress",
     value: "in_progress",
-    color: "bg-yellow-500",
+    color: "yellow-500",
   },
   {
     label: "Done",
     value: "done",
-    color: "bg-green-500",
+    color: "green-500",
   },
 ];
 
