@@ -62,8 +62,8 @@ function App() {
   }
 
   return (
-    <div className="flex flex-col px-40 py-20 gap-y-5">
-      <div className="text-2xl font-bold">Task Dashboard</div>
+    <div className="flex flex-col py-20 gap-y-5 px-5 md:px-10 lg:px-40">
+      <div className="text-2xl font-extrabold">Task Dashboard</div>
       <div className="flex justify-between">
         <Input
           placeholder="Search tasks..."
