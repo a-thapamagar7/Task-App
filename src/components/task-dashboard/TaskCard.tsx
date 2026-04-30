@@ -38,24 +38,24 @@ const TaskCard: React.FC<{
     (status) => status.value !== currentStatus,
   );
   return (
-    <Card className="flex-1 shadow-md">
+    <Card className=" shadow-md">
       <CardHeader>
         <CardTitle className="base">{title}</CardTitle>
       </CardHeader>
 
       <CardContent className="text-justify text-muted-foreground">
-        <CardDescription className="line-clamp-4 text-xs">
+        <CardDescription className="line-clamp-2 text-xs">
           {description}
         </CardDescription>
       </CardContent>
 
       <CardFooter className="flex justify-between text-xs text-muted-foreground">
         <div className="flex gap-2">
-          <Button variant="ghost" onClick={onEdit}>
+          <Button variant="ghost" onClick={onEdit} aria-label="Edit task">
             <HugeiconsIcon icon={Edit02Icon} className="text-blue-500" />
           </Button>
 
-          <Button variant="ghost" onClick={onDelete}>
+          <Button variant="ghost" onClick={onDelete} aria-label="Delete task">
             <HugeiconsIcon icon={Delete01Icon} className="text-red-500" />
           </Button>
         </div>

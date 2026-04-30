@@ -6,8 +6,16 @@ import { loadTasks, saveTasks } from "@/utils/localStorage.helper";
 export function useTasks() {
   const [tasks, setTasks] = useState<Task[]>(() => {
     const stored = loadTasks();
-
-    return stored.length ? stored : [];
+    return stored.length
+      ? stored
+      : [
+          {
+            id: uuidv4(),
+            title: "Create a new Landing Page",
+            description: "This is a sample task description...",
+            status: "to_do",
+          },
+        ];
   });
 
   useEffect(() => {
@@ -24,32 +32,28 @@ export function useTasks() {
     groupedTasks[task.status].push(task);
   }
 
-  const deleteTask = (id: string) => {
-    setTasks((prev) => prev.filter((task) => task.id !== id));
+  const addTask = (data: Omit<Task, "id">) => {
+    setTasks((prev) => [...prev, { id: uuidv4(), ...data }]);
   };
 
-  const editTask = (id: string, title: string) => {
-    setTasks((prev) =>
-      prev.map((task) => (task.id === id ? { ...task, title } : task)),
-    );
+  const editTask = (id: string, data: Omit<Task, "id">) => {
+    setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, ...data } : t)));
+  };
+
+  const deleteTask = (id: string) => {
+    setTasks((prev) => prev.filter((t) => t.id !== id));
   };
 
   const moveTask = (id: string, status: TaskStatus) => {
-    setTasks((prev) =>
-      prev.map((task) => (task.id === id ? { ...task, status } : task)),
-    );
-  };
-
-  const addTask = (task: Omit<Task, "id">) => {
-    setTasks((prev) => [...prev, { id: uuidv4(), ...task }]);
+    setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, status } : t)));
   };
 
   return {
     tasks,
     groupedTasks,
-    deleteTask,
-    editTask,
-    moveTask,
     addTask,
+    editTask,
+    deleteTask,
+    moveTask,
   };
 }
